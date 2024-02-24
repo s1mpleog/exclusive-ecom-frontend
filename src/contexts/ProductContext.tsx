@@ -5,6 +5,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 type ProductContextType = {
   allProduct: IProduct[] | undefined;
+  quantity: number;
+  handleCart: () => void;
 };
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -23,6 +25,12 @@ export const ProductContextProvider = ({
     undefined
   );
 
+  const [quantity, setQuantity] = useState<number>(0);
+
+  const handleCart = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
   useEffect(() => {
     if (data && !isError) {
       setAllProduct((prev) => {
@@ -36,7 +44,7 @@ export const ProductContextProvider = ({
   }, [data, isError]);
 
   return (
-    <ProductContext.Provider value={{ allProduct }}>
+    <ProductContext.Provider value={{ allProduct, quantity, handleCart }}>
       {children}
     </ProductContext.Provider>
   );

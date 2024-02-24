@@ -1,16 +1,20 @@
 import * as productService from "@/api/product.service";
+import * as cartService from "@/api/cart.service";
 import SingleDetailsPageCarousel from "@/components/products/details-page/SingleDetailsPageCarousel";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ISingleProduct } from "@/types/types";
 import { convertToStars } from "@/utils/aveageRating";
 import { formatCurrency } from "@/utils/currencyFormatter";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader } from "lucide-react";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const ProductDetailsPage = () => {
   const { productId } = useParams();
+
+  const queryClient = useQueryClient();
 
   console.log(productId);
 
@@ -23,6 +27,24 @@ const ProductDetailsPage = () => {
     queryKey: ["single-product"],
     queryFn: () => productService.getProductById(productId),
   });
+
+  const mutation = useMutation({
+    mutationKey: ["add-to-cart"],
+    mutationFn: cartService.addToCart,
+
+    onSuccess: async () => {
+      toast.success("Product added to cart success");
+      await queryClient.invalidateQueries({ queryKey: ["add-cart"] });
+    },
+
+    onError: (err: Error) => {
+      toast.error(err.message);
+    },
+  });
+
+  const addToCart = (id: string | undefined) => {
+    mutation.mutateAsync(id);
+  };
 
   if (isLoading) {
     return (
@@ -51,7 +73,7 @@ const ProductDetailsPage = () => {
   return (
     <>
       <div className="grid grid-cols-2 container mx-auto my-10">
-        <div>
+        <div className="">
           <SingleDetailsPageCarousel images={product?.product.images} />
         </div>
         <div className="space-y-5">
@@ -86,7 +108,12 @@ const ProductDetailsPage = () => {
             <p>{product?.product.description}</p>
           </div>
           <div>
-            <Button className="w-full" size={"lg"}>
+            <Button
+              disabled={mutation.isPending}
+              onClick={() => addToCart(productId)}
+              className="w-full"
+              size={"lg"}
+            >
               Add to cart
             </Button>
           </div>

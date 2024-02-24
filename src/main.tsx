@@ -8,6 +8,7 @@ import AppRoute from "./AppRoutes.tsx";
 import { AppContextProvider } from "./contexts/AppContext.tsx";
 import { ProductContextProvider } from "./contexts/ProductContext.tsx";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <AppContextProvider>
           <ProductContextProvider>
             <AppRoute />
+            <Toaster />
           </ProductContextProvider>
         </AppContextProvider>
       </QueryClientProvider>

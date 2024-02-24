@@ -99,3 +99,27 @@ export type ProductResponse = {
   success: boolean;
   product: ISingleProduct;
 };
+
+export type ICart = {
+  success: boolean;
+  items: Array<{
+    _id: string;
+    products: Array<{
+      name: string;
+      price: number;
+      offerPrice?: number;
+      images: Array<{
+        url: string;
+        public_id: string;
+        _id: string;
+      }>;
+      quantity: number;
+    }>;
+    user: string;
+    quantity: number;
+    totalAmount: number;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  }>;
+};

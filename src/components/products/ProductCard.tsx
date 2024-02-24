@@ -10,7 +10,7 @@ const ProductCard = () => {
   const { allProduct } = useProductContext();
 
   return (
-    <div className="flex my-20">
+    <div className="grid grid-cols-4 space-y-10 my-20">
       {allProduct?.map((item) =>
         item.products.map((product) => (
           <Link

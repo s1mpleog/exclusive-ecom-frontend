@@ -3,10 +3,18 @@
 @tailwind utilities;
 
 body {
-  font-family: "Rubik";
+  font-family: "Josefin Sans";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  letter-spacing: 0.05em;
+  line-height: 1.5;
+}
+
+p,
+span,
+button {
+  font-family: "Outfit";
   letter-spacing: 0.05em;
   line-height: 1.5;
 }

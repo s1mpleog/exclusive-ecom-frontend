@@ -117,9 +117,18 @@ export type ICart = {
     }>;
     user: string;
     quantity: number;
-    totalAmount: number;
+    totalAmount: string;
     createdAt: string;
     updatedAt: string;
     __v: number;
   }>;
+};
+
+export type IOrderCreate = {
+  apartment: string;
+  city: string;
+  country: string;
+  emailAddress: string;
+  phoneNumber: string;
+  streetAddress: string;
 };

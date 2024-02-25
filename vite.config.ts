@@ -9,7 +9,7 @@ export default defineConfig({
     react(),
     Unfonts({
       google: {
-        families: ["Rubik"],
+        families: ["Rubik", "Outfit", "Josefin Sans"],
       },
     }),
   ],

@@ -14,6 +14,7 @@ const VerifyOtpModel = lazy(() => import("@/components/models/verifyOTPModel"));
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
 const ProductDetailsPage = lazy(() => import("@/pages/ProductDetailsPage"));
 const CartPage = lazy(() => import("@/pages/CartPage"));
+const AddressPage = lazy(() => import("@/pages/AddressPage"));
 
 export default function AppRoute() {
   return (
@@ -139,6 +140,23 @@ export default function AppRoute() {
           >
             <Layout>
               <CartPage />
+            </Layout>
+          </Suspense>
+        }
+      />
+
+      <Route
+        path="/address"
+        element={
+          <Suspense
+            fallback={
+              <div>
+                <Loader className="animate-spin transition-all" />
+              </div>
+            }
+          >
+            <Layout>
+              <AddressPage />
             </Layout>
           </Suspense>
         }
